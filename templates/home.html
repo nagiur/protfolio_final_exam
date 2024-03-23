@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<title>Home</title>
+<script>
+    {% if messages %}
+      document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+          title: 'Success!',
+          html: `
+            <p>
+              {% for message in messages %}
+                {{ message }}
+              {% endfor %}
+            </p>
+          `,
+          icon: 'success',
+          showCloseButton: true,
+          confirmButtonText: 'OK',
+        });
+      });
+    {% endif %}
+</script>
+
+<br/>
+<br/>
+<br/>
+<div class="d-flex justify-content-center ">
+    <img class="" src="/static/nagiurvhi.jpg"
+    style="height: 100px; border-radius: 100%; background-color: #FBF8F8;" />
+  </div>
+      <div class="d-flex-center">
+              <div class="mx-2 d-flex justify-content-center">
+                <div class="rounded-3xl flex flex-col items-center pt-24">
+                    <div class=" flex flex-col items-center">
+                    <h2 class=" pt-4" style="text-align: center ;">Welcome to My Portfolio</h2>
+                    <h4 class="font-bold text-5xl my-3" style="text-align: center ;">Hi, I'm Nagiur Rahaman</h4>
+                    <h5 class="font-bold text-5xl text-danger" style="text-align: center ;">Backend Developer</h5>
+                </div>
+                    <br class="pt-3">
+                        A Django developer is a professional skilled in using the Django web framework,</br> a popular tool for building web applications in Python. They leverage Django's robust features, including </br>its ORM (Object-Relational Mapping) system, authentication mechanisms, and built-in admin interface, </br>to develop scalable and secure web solutions. Django developers are proficient in handling various aspects of </br>web development, from designing database schemas to implementing complex business logic. They often work </br>with frontend technologies like HTML, CSS, and JavaScript to create seamless user experiences.
+                    </p>
+
+                    <div class="pt-3 d-flex justify-content-center">
+                        <a href="{% url 'contact' %}" type="button" class="btn btn-outline-danger">Contact Me</a>
+                    </div>
+                  </div>
+      </div>
+
+</br>
+
+<div class="d-flex justify-content-center ">
+  <h1 class="display-6 fw-bold border-bottom  border-2 text-center my-3 w-50 py-3">PROJECT CATAGORY</h1>
+</div>
+    <div class="d-flex justify-content-center">
+        <div class="mx-2">
+            <input type="radio" class="btn-check" Name="brand" id="" autocomplete="off" unchecked>
+            <label class="btn btn-danger cardx " for=" "><a href="/" class="text-decoration-none text-black">All</a></label>
+        </div>
+        {% for c in category %}
+            <div class="mx-2">
+                <input type="radio" class="btn-check" Name="brand" id="{{c.id}}" autocomplete="off" unchecked>
+                <label class="btn btn-danger cardx " for="{{c.name}} "><a href="{% url 'category_wice_quiz' c.name %}" class="text-decoration-none text-black">{{c.name}}</a></label>
+            </div>
+        {% endfor %}
+    </div>
+      
+
+    <div class="col-12 ">
+        <div class="d-flex flex-wrap  m-3">
+            {% for c in data %}
+                <div class="m-4">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                          <img src="{{ c.image.url }}" class="card-img-top" alt="Image">
+                            <h4>{{c.catagory}}</h4>
+
+                            <p class="card-title"> {{c.title | truncatewords:8}}</p>
+
+                            <p class="card-title"> {{c.description | truncatewords:8}}</p>
+                            
+           
+                            <a href="{% url 'details' c.id %}" type="button" class="btn btn-sm btn-outline-danger">Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+

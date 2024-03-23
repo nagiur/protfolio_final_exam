@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<title>DETAILS</title>
+
+<style>
+  body {
+      background-color: #f0f0f0; /* Set the background color of the body */
+  }
+</style>
+<div>
+<div class=" d-flex flex-wrap px-5 pt-3 " style="background-color: None;">
+  <div class="col-6 ">
+    <img src="{{detail.image.url}}" class="card-img-top pt-2 w-75 m-auto" alt="..." />
+  </div>
+  <div class="col-6 ">
+    <div class="card-body">
+        <br />
+      <h4 class="card-title">{{detail.title}}</h4>
+      <br>
+      <p class="card-text">{{detail.description}}</p>
+
+      <p class="card-text text-info">Using Technologies : {{detail.technoloties}}</p>
+
+      <br/>
+      <h4 class="card-title pricing-card-title">Live Link</h4>
+      <a  href="{{detail.projec_url}}" target="_blank" class="text-danger">{{detail.projec_url}}</a>
+
+
+  </div>
+ 
+  </div>
+  </div>
+  <div class="card m-2">
+    <div class="card-body justify-content-center align-content-center">
+    <form  method="post" >
+        <h1> Add Review </h1>
+        {% csrf_token %}
+    {{comments_form | crispy}}
+    
+    <button class="btn btn-warning">Submit</button>
+    </form>
+    </div>
+</div>
+
+
+</div>
+            <div class="col-12   d-flex flex-wrap-reverse order-1 order-md-2 justify-content-center">
+                {% for comment in comments %}
+                <div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">{{comment.name}}</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">{{comment.rating}}</h6>
+
+                    </div>
+                  </div>
+                </div>
+{% endfor %}
+          </div>
+{% endblock %}
